@@ -1,0 +1,190 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <form method="post" action="">
+        <table class="table table-bordered" border="1">
+            <thead>
+            <tr>
+                <th colspan="2" scope="col">param23</th>
+                <th colspan="4" scope="col">param9</th>
+                <th colspan="2" scope="col">param22</th>
+                <th colspan="4" scope="col">currentSum</th>
+                <th colspan="6" scope="col">Tenors</th>
+                <th colspan="2" scope="col">PROMO ID for STP</th>
+                <th colspan="2" scope="col">PROMO ID for CRI-LOP</th>
+                <th rowspan="2" scope="col">Шапка скрипта Промо</th>
+                <th rowspan="2" scope="col">Добавить/ Удалить строку</th>
+            </tr>
+            <tr>
+                <th scope="col">Included</th>
+                <th scope="col">Excluded</th>
+                <th scope="col">From</th>
+                <th scope="col">To</th>
+                <th scope="col">IncludeFrom</th>
+                <th scope="col">IncludeTo</th>
+                <th scope="col">Included</th>
+                <th scope="col">Excluded</th>
+                <th scope="col">From</th>
+                <th scope="col">To</th>
+                <th scope="col">IncludeFrom</th>
+                <th scope="col">IncludeTo</th>
+                <th scope="col">12</th>
+                <th scope="col">18</th>
+                <th scope="col">24</th>
+                <th scope="col">36</th>
+                <th scope="col">48</th>
+                <th scope="col">60</th>
+                <th scope="col">Internal</th>
+                <th scope="col">External</th>
+                <th scope="col">Internal</th>
+                <th scope="col">External</th>
+            </tr>
+            </thead>
+            <tbody id="dynamic">
+            <tr>
+                <td>
+                    <label>
+                        <input type="text" name="param23_included" value="Simplicity">
+                    </label>
+                </td>
+                <td>
+                    <label>
+                        <input type="text" name="param23_excluded" value="All">
+                    </label>
+                </td>
+                <td>
+                    <label>
+                        <input type="text" name="param9_from" value="1">
+                    </label>
+                </td>
+                <td>
+                    <label>
+                        <input type="text" name="param9_to" value="5">
+                    </label>
+                </td>
+                <td>
+                    <label>
+                        <select name="param9_include_from">
+                            <option value="true">true</option>
+                            <option value="false">false</option>
+                        </select>
+                    </label>
+                </td>
+                <td>
+                    <label>
+                        <select name="param9_include_to">
+                            <option value="true">true</option>
+                            <option value="false">false</option>
+                        </select>
+                    </label>
+                </td>
+                <td>
+                    <label>
+                        <input type="text" name="param22_included" value="All">
+                    </label>
+                </td>
+                <td>
+                    <label>
+                        <input type="text" name="param22_excluded" value="NTB_New">
+                    </label>
+                </td>
+                <td>
+                    <label>
+                        <input type="text" name="currentSum_from" value="null">
+                    </label>
+                </td>
+                <td>
+                    <label>
+                        <input type="text" name="currentSum_to" value="15000">
+                    </label>
+                </td>
+                <td>
+                    <label>
+                        <select name="currentSum_include_from">
+                            <option value="true">true</option>
+                            <option value="false">false</option>
+                        </select>
+                    </label>
+                </td>
+                <td>
+                    <label>
+                        <select name="currentSum_include_to">
+                            <option value="true">true</option>
+                            <option value="false">false</option>
+                        </select>
+                    </label>
+                </td>
+                <td>
+                    <label>
+                        <input id="tenor" type="text" name="tenor_12" value="13.7">
+                    </label>
+                </td>
+                <td>
+                    <label>
+                        <input id="tenor" type="text" name="tenor_18" value="13.7">
+                    </label>
+                </td>
+                <td>
+                    <label>
+                        <input id="tenor" type="text" name="tenor_24" value="13.7">
+                    </label>
+                </td>
+                <td>
+                    <label>
+                        <input id="tenor" type="text" name="tenor_36" value="13.7">
+                    </label>
+                </td>
+                <td>
+                    <label>
+                        <input id="tenor" type="text" name="tenor_48" value="13.7">
+                    </label>
+                </td>
+                <td>
+                    <label>
+                        <input id="tenor" type="text" name="tenor_60" value="13.7">
+                    </label>
+                </td>
+                <td>
+                    <label>
+                        <input type="text" name="promo_stp_internal" value="ILSF0B159">
+                    </label>
+                </td>
+                <td>
+                    <label>
+                        <input type="text" name="promo_stp_external" value="ELSF0B159">
+                    </label>
+                </td>
+                <td>
+                    <label>
+                        <input type="text" name="promo_cri_lop_internal" value="IL0F0B159">
+                    </label>
+                </td>
+                <td>
+                    <label>
+                        <input type="text" name="promo_cri_lop_external" value="EL0F0B159">
+                    </label>
+                </td>
+                <td>
+                    <label>
+                        <select name="MinPromoAmount">
+                            <option value="MinPromoAmount">MinPromoAmount</option>
+                            <option value="MinPromoAmount_New">MinPromoAmount_New</option>
+                        </select>
+                    </label>
+                </td>
+                <td>
+                    <button type="button" class="add">+</button>
+                    <button type="button" class="del">-</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <input name="sub" type="submit" value="SEND" style="margin: 10px">
+    </form>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('asset/js/dynamicTable.js') }}"></script>
+    <script>
+        new DynamicTable( document.getElementById("dynamic") );
+    </script>
+{% endblock %}
