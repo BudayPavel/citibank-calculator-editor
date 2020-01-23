@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+set -e
+
+function ping {
+    local output=$(mysqladmin ping -u"${MYSQL_USER}" -p"${MYSQL_ROOT_PASSWORD}" 2>&1)
+    if [[ "$output" == "mysqld is alive" ]]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+TIMEOUT=$(date --date "${1:-5} sec" +"%s")
+INTERVAL=${2:-1}
+ISPING=false
+
+while [[ "$(date +"%s")" -lt "$TIMEOUT" ]]; do
+    echo "ping mysql host..."
+    if ping; then
+        ISPING=true
+        break
+    fi
+    sleep "$INTERVAL"
+done
+
+if [ "$ISPING" == false ]; then
+    echo "MySQL is not ready. Try again later."
+    exit 1
+fi

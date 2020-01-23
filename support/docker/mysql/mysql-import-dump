@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+set -e
+
+function database_exist {
+    local output=$(mysql -u"${MYSQL_USER}" -p"${MYSQL_ROOT_PASSWORD}" -se "USE ${1}" 2>&1)
+    if [[ -z "$output" ]]; then
+        return 0 # database exists
+    else
+        return 1 # database doesn't exist
+    fi
+}
+
+DB_NAME=$1
+DUMP_FILE=$2
+if database_exist "$DB_NAME"; then
+    echo "The database $DB_NAME already exists"
+else
+    echo "Import dump for $DB_NAME from $DUMP_FILE ..."
+    if [ "${DUMP_FILE}" ]; then
+        mysql -u"${MYSQL_USER}" -p"${MYSQL_ROOT_PASSWORD}" < "${DUMP_FILE}"
+     else
+        echo "Path to sql is empty"
+    fi
+fi

@@ -1,0 +1,61 @@
+version: '2'
+services:
+
+    ### Workspace Utilities Container ###########################
+    php:
+        image: ${DOCKER_REGISTRY_URL}${DOCKER_REPOSITORY_NAME}php:${DOCKER_TAG}
+        volumes:
+            - ${PROJECT_ROOT_DIR}:/var/www/app
+        environment:
+            DB_HOST:        ${DB_HOST}
+            DB_NAME:        ${DB_NAME}
+            DB_USERNAME:    ${DB_USERNAME}
+            DB_PASSWORD:    ${DB_PASSWORD}
+        links:
+            - "database:${DB_HOST}"
+        depends_on:
+            - database
+        networks:
+            - app_network
+    database:
+        image: ${DOCKER_REGISTRY_URL}${DOCKER_REPOSITORY_NAME}mysql:${DOCKER_TAG}
+        restart: always
+        ports:
+            - "${DB_PORT}:3306"
+        volumes:
+            - "mysql_data:/var/lib/mysql"
+        environment:
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+            MYSQL_DATABASE:      ${DB_NAME}
+            MYSQL_USER:          ${DB_USERNAME}
+            MYSQL_PASSWORD:      ${DB_PASSWORD}
+        networks:
+            - app_network
+    nginx:
+        image: ${DOCKER_REGISTRY_URL}${DOCKER_REPOSITORY_NAME}nginx:${DOCKER_TAG}
+        ports:
+            - "8080:80"
+        links:
+            - php
+        volumes_from:
+            - php
+        volumes:
+            - ${PROJECT_ROOT_DIR}/var/log/nginx/:/var/log/nginx
+            - ${PROJECT_ROOT_DIR}:/var/www/app
+        networks:
+            - app_network
+
+### Networks Setup ############################################
+networks:
+    app_network:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+                - subnet: ${DOCKER_SUBNET}
+                  gateway: ${DOCKER_GATEWAY}
+
+### Volumes Setup #############################################
+volumes:
+   mysql_data:
+      driver: local
